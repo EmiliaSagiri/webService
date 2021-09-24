@@ -5,29 +5,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="./css/login.css" type="text/css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script src="js/api.js"></script>
 </head>
 
 <body>
 <div class="login">
     <h1>Login</h1>
-    <input id="u" type="text" name="u" placeholder="Username" required="required"/>
-    <input id="p" type="password" name="p" placeholder="Password" required="required"/>
-    <button id="b" type="submit" class="btn btn-primary btn-block btn-large">登录</button>
+    <input type="text" name="u" placeholder="Username" required="required"/>
+    <input type="password" name="p" placeholder="Password" required="required"/>
+    <button type="submit" class="btn btn-primary btn-block btn-large">登录</button>
 </div>
 </body>
 
 <script>
-    $("#b").click(function () {
-        login($("#u").val(), $("#p").val(),
+    $("button").click(function () {
+        login($("input")[0].val(), $("input")[1].val(),
             function (data) {
                 session = JSON.stringify(data.session)
                 localStorage.setItem("session", session)
                 alert("登陆成功")
-                window.location.href = "./index.html"
+                window.location.href = "/index.html"
             })
     })
+
+    $(document).ready(function () {
+        if (true) {
+            $("#selectOption").show()//添加判断 是否已经登录
+        }
+        getAboutContent(function (data) {
+            $("#about").append($(data.content))
+        }, function (data) {
+
+        })
+
+        $("#selectOption").change(function () {
+            console.log($("#selectOption").val())
+            if ($("#selectOption").val() == "02") {
+                loginOut(function () {
+                    location.reload();
+                }, function () {
+
+                })
+            } else if ($("#selectOption").val() == "03") {
+                $("#readme").removeAttr("readonly")
+                let obj = CKEDITOR.replace('readme');
+                obj.setData($("#about").html());
+                $("#back").show()
+                $("#about").hide()
+                $("#save").show()
+                    .click(function () {
+                        console.log(CKEDITOR.instances.readme.getData())
+                        modifyAbout(CKEDITOR.instances.readme.getData(),
+                            function (data) {
+                            })
+                    })
+            }
+        })
+        $("#login").click(function () {
+
+        });
+
+        $("#register").click(function () {
+            register($("#name").val(), $("#pwd").val(),
+                function (data) {
+                    alert("注册成功")
+                }, function (data) {
+
+                })
+        });
+        $("#delete").click(function () {
+            deleteUser($("#name").val(),
+                function () {
+                    alert("删除成功")
+                })
+        });
+
+
+        $("#bo").click(function () {
+            bo = true;
+        })
+        $("#zhan").click(function () {
+            if (bo) {
+                $("#hideAll").show()
+                $("#selectOption").hide()
+                bo = false;
+            }
+        })
+
+
+    });
+
 </script>
 
 </html>

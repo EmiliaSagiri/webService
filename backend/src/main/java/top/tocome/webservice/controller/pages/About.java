@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class About {
     public static final Logger logger = LoggerFactory.getLogger("about");
-    public static final String savePath = Config.dataPath + "about.txt";
+    public static final String savePath = Config.dataPath + "about.md";
 
     public static Error invoke(HttpServletRequest request, ResponseData data) {
         String type = request.getParameter("type");

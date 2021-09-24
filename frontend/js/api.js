@@ -1,4 +1,5 @@
-<!--api接口-->
+<!--定义全局量所有页面都要调用该js文件-->
+
 
 //---------------------api-------------------------
 
@@ -96,6 +97,22 @@ function deleteUser(id, success, failed) {
             data: {
                 type: "delete",
                 id: id,
+                session: session
+            }
+        },
+        success, failed
+    )
+}
+
+/**
+ * 获取所有用户信息
+ */
+function getUser(success, failed) {
+    ajax({
+            type: "post",
+            url: "/login",
+            data: {
+                type: "get",
                 session: session
             }
         },

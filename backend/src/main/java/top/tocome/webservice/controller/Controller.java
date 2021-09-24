@@ -11,6 +11,7 @@ import top.tocome.io.File;
 import top.tocome.webservice.controller.pages.About;
 import top.tocome.webservice.controller.pages.FileManager;
 import top.tocome.webservice.controller.pages.Login;
+import top.tocome.webservice.controller.pages.UserCenter;
 import top.tocome.webservice.data.ResponseData;
 
 import javax.servlet.http.HttpServletRequest;
@@ -62,5 +63,13 @@ public class Controller {
         String path = request.getParameter("path");
         logger.info(path);
         return new FileSystemResource(new File(path));
+    }
+    @PostMapping( "/user")
+    @CrossOrigin
+    public String user(HttpServletRequest request) {
+        logger.info("new request:" + request.getRequestURI());
+        ResponseData data = new ResponseData();
+        data.setError(UserCenter.invoke(request, data));
+        return data.toJSONString();
     }
 }

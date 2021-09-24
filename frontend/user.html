@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文档管理</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/ljj.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="./js/main.js"></script>
+    <style>
+
+
+
+    </style>
+</head>
+<body>
+<div class="col-sm-7">
+
+</div>
+<div id = "message">
+
+</div>
+</body>
+<script>
+    $(window).resize(function () {
+        const win = $(this).width();
+
+        if (win < 1493) { //宽度小于1493时，按1493和窗口实际宽度计算等比
+
+            $("body").css("zoom", win / 1493);
+
+        }else{
+            $("body").css("zoom", "normal");
+
+        }
+
+    }).trigger('resize');
+    // 赋值给textarea $("#readme").removeAttr("readonly")
+    // let obj = CKEDITOR.replace('readme');
+    // obj.setData($("#about").html());
+    // $("#back").show()
+    // $("#about").hide()
+    // $("#save").show()
+    //     .click(function () {
+    //         console.log(CKEDITOR.instances.readme.getData())
+    //         modifyAbout(CKEDITOR.instances.readme.getData(),
+    //             function (data) {
+    //             })
+    //     })
+    $(document).ready(function () {
+        getUser(function (data) {
+            console.log(data.user)
+            $("#message").text($(data.user))
+        },function () {
+
+        })
+    })
+</script>
+</html>
